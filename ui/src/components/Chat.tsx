@@ -171,9 +171,7 @@ export const Chat = ({ socket }: IChatProps) => {
     if (!user.current) {
       return;
     }
-
     console.log('movement');
-
     if (movement.left) {
       user.current.x = Math.max(user.current.x - 10, 0);
     }
@@ -186,9 +184,7 @@ export const Chat = ({ socket }: IChatProps) => {
     if (movement.down) {
       user.current.y = Math.min(user.current.y + 10, 1000);
     }
-
     console.log(`x: ${user.current.x}, y: ${user.current.y}`);
-
     socket.emit('userMovement', user.current.x, user.current.y);
   }, [movement]);
 
@@ -215,7 +211,7 @@ export const Chat = ({ socket }: IChatProps) => {
       socket.on('partnerDraw', (drawState: any) => {
         contextRef.current.closePath();
         contextRef.current.beginPath();
-        contextRef.current.strokeStyle = drawState.color; // TODO: This is changing the previous line that the partner drew to the new color.
+        contextRef.current.strokeStyle = drawState.color;
         contextRef.current.moveTo(drawState.lastPoint.x, drawState.lastPoint.y);
         contextRef.current.lineTo(drawState.x, drawState.y);
         contextRef.current.stroke();
